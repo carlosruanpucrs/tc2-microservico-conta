@@ -4,12 +4,15 @@ import com.carlosruanpucrs.tc2_microservico_conta.api.request.ContratacaoContaRe
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaResumoResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaSaldoResponse;
+import com.carlosruanpucrs.tc2_microservico_conta.enums.OperacaoTransacaoEnum;
 import com.carlosruanpucrs.tc2_microservico_conta.service.ContaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,5 +36,13 @@ public class ContaApi {
     @GetMapping("/{numeroConta}/saldo")
     public ResponseEntity<ContaSaldoResponse> saldoConta(@PathVariable Integer numeroConta) {
         return ResponseEntity.ok(contaService.obtemSaldo(numeroConta));
+    }
+
+    @PatchMapping("/{numeroConta}/saldo/atualizacao")
+    public ResponseEntity<Void> atualizarSaldo(@PathVariable Integer numeroConta,
+                                               @RequestParam("valor") BigDecimal valor,
+                                               @RequestParam("operacaoTransacao") OperacaoTransacaoEnum operacaoTransacao) {
+        contaService.atualizarSaldo(numeroConta, valor, operacaoTransacao);
+        return ResponseEntity.noContent().build();
     }
 }

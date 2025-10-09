@@ -4,6 +4,7 @@ import com.carlosruanpucrs.tc2_microservico_conta.api.request.ContratacaoContaRe
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaResumoResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaSaldoResponse;
+import com.carlosruanpucrs.tc2_microservico_conta.enums.OperacaoTransacaoEnum;
 import com.carlosruanpucrs.tc2_microservico_conta.enums.TipoContaEnum;
 import com.carlosruanpucrs.tc2_microservico_conta.exception.ContaNaoEncontradaException;
 import com.carlosruanpucrs.tc2_microservico_conta.exception.DocumentoClienteNaoEncontradoException;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Slf4j
@@ -50,7 +52,7 @@ public class ContaService {
         return Objects.equals(TipoContaEnum.CONTA_BENEFICIO, tipoConta) ? gerarNumeroConta() * 2 : null;
     }
 
-    public ContaSaldoResponse obtemSaldo(Integer numeroConta){
+    public ContaSaldoResponse obtemSaldo(Integer numeroConta) {
         var conta = obtemContaPorNumero(numeroConta);
         return ContaMapper.mapToContaSaldoResponse(conta);
     }
@@ -58,6 +60,18 @@ public class ContaService {
     public ContaResponse obtemDadosContaPorNumero(Integer numeroConta) {
         var conta = obtemContaPorNumero(numeroConta);
         return ContaMapper.mapToContaResponse(conta);
+    }
+
+    public void atualizarSaldo(Integer numeroConta, BigDecimal valor, OperacaoTransacaoEnum operacaoTransacao) {
+        var conta = obtemContaPorNumero(numeroConta);
+
+        if (Objects.equals(OperacaoTransacaoEnum.CREDITO, operacaoTransacao)) {
+            conta.creditar(valor);
+        } else {
+            conta.debitar(valor);
+        }
+
+        contaRepository.save(conta);
     }
 
     private ContaEntity obtemContaPorNumero(Integer numeroConta) {
