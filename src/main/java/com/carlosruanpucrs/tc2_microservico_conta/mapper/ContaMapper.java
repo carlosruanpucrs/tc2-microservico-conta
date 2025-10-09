@@ -2,6 +2,7 @@ package com.carlosruanpucrs.tc2_microservico_conta.mapper;
 
 import com.carlosruanpucrs.tc2_microservico_conta.api.request.ContratacaoContaRequest;
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaResumoResponse;
+import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaSaldoResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.enums.SituacaoContaEnum;
 import com.carlosruanpucrs.tc2_microservico_conta.message.event.ContaNotificacaoBacenEvent;
 import com.carlosruanpucrs.tc2_microservico_conta.model.entity.ContaEntity;
@@ -34,6 +35,14 @@ public class ContaMapper {
                 .dataCriacao(contaEntity.getDataCriacao())
                 .saldo(contaEntity.getSaldo())
                 .situacao(contaEntity.getSituacao())
+                .build();
+    }
+
+    public static ContaSaldoResponse mapToContaSaldoResponse(ContaEntity contaEntity) {
+        return ContaSaldoResponse.builder()
+                .numeroConta(contaEntity.getNumeroConta())
+                .saldo(contaEntity.getSaldo())
+                .saldoBloqueado(contaEntity.getSaldoBloqueado())
                 .build();
     }
 

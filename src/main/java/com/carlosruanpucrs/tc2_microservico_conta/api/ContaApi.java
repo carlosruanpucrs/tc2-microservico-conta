@@ -2,6 +2,7 @@ package com.carlosruanpucrs.tc2_microservico_conta.api;
 
 import com.carlosruanpucrs.tc2_microservico_conta.api.request.ContratacaoContaRequest;
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaResumoResponse;
+import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaSaldoResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.service.ContaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,5 +22,10 @@ public class ContaApi {
     @PostMapping
     public ResponseEntity<ContaResumoResponse> contratarConta(@RequestBody ContratacaoContaRequest request) {
         return ResponseEntity.ok(contaService.contratarConta(request));
+    }
+
+    @GetMapping("/{numeroConta}/saldo")
+    public ResponseEntity<ContaSaldoResponse> saldoConta(@PathVariable Integer numeroConta) {
+        return ResponseEntity.ok(contaService.obtemSaldo(numeroConta));
     }
 }

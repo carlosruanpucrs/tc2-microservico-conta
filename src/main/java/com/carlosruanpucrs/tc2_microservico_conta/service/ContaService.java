@@ -2,7 +2,9 @@ package com.carlosruanpucrs.tc2_microservico_conta.service;
 
 import com.carlosruanpucrs.tc2_microservico_conta.api.request.ContratacaoContaRequest;
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaResumoResponse;
+import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaSaldoResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.enums.TipoContaEnum;
+import com.carlosruanpucrs.tc2_microservico_conta.exception.ContaNaoEncontradaException;
 import com.carlosruanpucrs.tc2_microservico_conta.exception.DocumentoClienteNaoEncontradoException;
 import com.carlosruanpucrs.tc2_microservico_conta.mapper.ContaMapper;
 import com.carlosruanpucrs.tc2_microservico_conta.model.entity.ContaEntity;
@@ -47,7 +49,17 @@ public class ContaService {
         return Objects.equals(TipoContaEnum.CONTA_BENEFICIO, tipoConta) ? gerarNumeroConta() * 2 : null;
     }
 
-    public ContaEntity obtemContaPorDocumento(String numeroDocumento) {
+    public ContaSaldoResponse obtemSaldo(Integer numeroConta){
+        var conta = obtemContaPorNumero(numeroConta);
+        return ContaMapper.mapToContaSaldoResponse(conta);
+    }
+
+    private ContaEntity obtemContaPorNumero(Integer numeroConta) {
+        return contaRepository.findContaEntityByNumeroConta(numeroConta)
+                .orElseThrow(() -> new ContaNaoEncontradaException(numeroConta));
+    }
+
+    private ContaEntity obtemContaPorDocumento(String numeroDocumento) {
         return contaRepository.findContaEntityByDocumentoCliente(numeroDocumento)
                 .orElseThrow(() -> new DocumentoClienteNaoEncontradoException(numeroDocumento));
     }
