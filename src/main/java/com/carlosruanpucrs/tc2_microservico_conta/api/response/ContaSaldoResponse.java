@@ -14,5 +14,4 @@ public class ContaSaldoResponse {
     Integer numeroConta;
     BigDecimal saldo;
     BigDecimal saldoBloqueado;
-
 }

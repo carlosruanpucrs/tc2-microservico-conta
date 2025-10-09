@@ -1,6 +1,7 @@
 package com.carlosruanpucrs.tc2_microservico_conta.service;
 
 import com.carlosruanpucrs.tc2_microservico_conta.api.request.ContratacaoContaRequest;
+import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaResumoResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaSaldoResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.enums.TipoContaEnum;
@@ -52,6 +53,11 @@ public class ContaService {
     public ContaSaldoResponse obtemSaldo(Integer numeroConta){
         var conta = obtemContaPorNumero(numeroConta);
         return ContaMapper.mapToContaSaldoResponse(conta);
+    }
+
+    public ContaResponse obtemDadosContaPorNumero(Integer numeroConta) {
+        var conta = obtemContaPorNumero(numeroConta);
+        return ContaMapper.mapToContaResponse(conta);
     }
 
     private ContaEntity obtemContaPorNumero(Integer numeroConta) {
