@@ -4,6 +4,7 @@ import com.carlosruanpucrs.tc2_microservico_conta.api.request.ContratacaoContaRe
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaResumoResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaSaldoResponse;
+import com.carlosruanpucrs.tc2_microservico_conta.api.response.ExtratoResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.enums.OperacaoTransacaoEnum;
 import com.carlosruanpucrs.tc2_microservico_conta.enums.TipoContaEnum;
 import com.carlosruanpucrs.tc2_microservico_conta.exception.ContaNaoEncontradaException;
@@ -25,6 +26,7 @@ public class ContaService {
 
     private final ContaRepository contaRepository;
     private final ContaBacenService contaBacenService;
+    private final ExtratoService extratoService;
     private final ValidacaoContratacaoContaService validacaoContratacaoContaService;
 
     public ContaResumoResponse contratarConta(ContratacaoContaRequest request) {
@@ -72,6 +74,11 @@ public class ContaService {
         }
 
         contaRepository.save(conta);
+    }
+
+    public ExtratoResponse gerarExtrato(Integer numeroConta) {
+        var conta = obtemContaPorNumero(numeroConta);
+        return extratoService.gerarExtrato(conta.getNumeroConta(), conta.getSaldo());
     }
 
     private ContaEntity obtemContaPorNumero(Integer numeroConta) {
