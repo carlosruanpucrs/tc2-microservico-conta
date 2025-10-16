@@ -9,6 +9,7 @@ import com.carlosruanpucrs.tc2_microservico_conta.service.ContaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ import java.math.BigDecimal;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/contas")
+@RequestMapping(path = "/v1/contas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ContaApi {
 
     private final ContaService contaService;
