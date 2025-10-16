@@ -4,8 +4,8 @@ import com.carlosruanpucrs.tc2_microservico_conta.api.request.ContratacaoContaRe
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaResumoResponse;
 import com.carlosruanpucrs.tc2_microservico_conta.api.response.ContaSaldoResponse;
+import com.carlosruanpucrs.tc2_microservico_conta.client.request.AberturaContaNotificacaoCcsRequest;
 import com.carlosruanpucrs.tc2_microservico_conta.enums.SituacaoContaEnum;
-import com.carlosruanpucrs.tc2_microservico_conta.message.event.ContaNotificacaoBacenEvent;
 import com.carlosruanpucrs.tc2_microservico_conta.model.entity.ContaEntity;
 
 import java.math.BigDecimal;
@@ -41,18 +41,24 @@ public class ContaMapper {
 
     public static ContaSaldoResponse mapToContaSaldoResponse(ContaEntity contaEntity) {
         return ContaSaldoResponse.builder()
-                .numeroConta(contaEntity.getNumeroConta())
                 .saldo(contaEntity.getSaldo())
                 .saldoBloqueado(contaEntity.getSaldoBloqueado())
                 .build();
     }
 
     public static ContaResponse mapToContaResponse(ContaEntity conta) {
-
+        return ContaResponse.builder()
+                .documentoCliente(conta.getDocumentoCliente())
+                .tipoConta(conta.getTipoConta())
+                .numeroConta(conta.getNumeroConta())
+                .numeroBeneficio(conta.getNumeroBeneficio())
+                .dataCriacao(conta.getDataCriacao())
+                .situacao(conta.getSituacao())
+                .build();
     }
 
-    public static ContaNotificacaoBacenEvent mapToContaNotificacaoBacenEvent(ContaEntity contaEntity) {
-        return ContaNotificacaoBacenEvent.builder()
+    public static AberturaContaNotificacaoCcsRequest mapToAberturaContaNotificacaoCcsRequest(ContaEntity contaEntity) {
+        return AberturaContaNotificacaoCcsRequest.builder()
                 .idTransacao(UUID.randomUUID().toString())
                 .dataAberturaConta(contaEntity.getDataCriacao())
                 .numeroDocumentoCliente(contaEntity.getDocumentoCliente())

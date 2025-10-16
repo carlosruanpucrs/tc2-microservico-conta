@@ -1,4 +1,4 @@
-package com.carlosruanpucrs.tc2_microservico_conta.message.event;
+package com.carlosruanpucrs.tc2_microservico_conta.client.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ContaNotificacaoBacenEvent {
+public class AberturaContaNotificacaoCcsRequest {
 
     String idTransacao;
     Integer numeroConta;
