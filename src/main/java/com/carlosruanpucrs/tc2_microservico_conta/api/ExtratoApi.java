@@ -5,6 +5,7 @@ import com.carlosruanpucrs.tc2_microservico_conta.service.ContaService;
 import com.carlosruanpucrs.tc2_microservico_conta.service.ExtratoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/extratos")
+@RequestMapping(path = "/v1/extratos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ExtratoApi {
 
     private final ContaService contaService;
