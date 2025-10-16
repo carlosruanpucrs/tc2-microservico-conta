@@ -25,7 +25,7 @@ import java.util.Objects;
 public class ContaService {
 
     private final ContaRepository contaRepository;
-    private final ContaBacenService contaBacenService;
+    private final CcsService ccsService;
     private final ExtratoService extratoService;
     private final ValidacaoContratacaoContaService validacaoContratacaoContaService;
 
@@ -41,7 +41,7 @@ public class ContaService {
         var conta = ContaMapper.mapToContaEntity(request, numeroConta, numeroBeneficio);
         var contaSalva = contaRepository.insert(conta);
 
-        contaBacenService.enviarNotificacaoAberturaConta(contaSalva);
+        ccsService.enviarNotificacaoAberturaConta(contaSalva);
 
         return ContaMapper.mapToContaResumoResponse(contaSalva);
     }
