@@ -39,11 +39,17 @@ public class ContaApi {
         return ResponseEntity.ok(contaService.obtemSaldo(numeroConta));
     }
 
-    @PatchMapping("/{numeroConta}/saldo/atualizacao")
-    public ResponseEntity<Void> atualizarSaldo(@PathVariable Integer numeroConta,
-                                               @RequestParam("valor") BigDecimal valor,
-                                               @RequestParam("operacaoTransacao") OperacaoTransacaoEnum operacaoTransacao) {
-        contaService.atualizarSaldo(numeroConta, valor, operacaoTransacao);
+    @PatchMapping("/{numeroConta}/credito")
+    ResponseEntity<Void> creditar(@PathVariable Integer numeroConta,
+                                  @RequestParam("valor") BigDecimal valor) {
+        contaService.atualizarSaldo(numeroConta, valor, OperacaoTransacaoEnum.CREDITO);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{numeroConta}/debito")
+    ResponseEntity<Void> debitar(@PathVariable Integer numeroConta,
+                                 @RequestParam("valor") BigDecimal valor) {
+        contaService.atualizarSaldo(numeroConta, valor, OperacaoTransacaoEnum.DEBITO);
         return ResponseEntity.noContent().build();
     }
 }
