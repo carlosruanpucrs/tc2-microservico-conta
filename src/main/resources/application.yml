@@ -16,9 +16,10 @@ eureka:
       defaultZone: https://tc2-microservice-discovery-server.onrender.com/eureka/
   instance:
     instance-id: ${spring.application.name}:${eureka.application.instance-id:${random.value}}
-    hostname: ${RENDER_EXTERNAL_URL:localhost}
+    hostname: tc2-microservico-conta.onrender.com
     non-secure-port-enabled: false
     secure-port-enabled: true
     secure-port: 443
-    status-page-url: ${RENDER_EXTERNAL_URL:localhost}/actuator/info
-    health-check-url: ${RENDER_EXTERNAL_URL:localhost}/actuator/health
+    prefer-ip-address: false
+    status-page-url: https://tc2-microservico-conta.onrender.com/actuator/info
+    health-check-url: https://tc2-microservico-conta.onrender.com/actuator/health
