@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@Component
+//@Component
 @FeignClient(name = "transacao-service", path = "/v1/transferencias")
 public interface TransacaoClient {
 
