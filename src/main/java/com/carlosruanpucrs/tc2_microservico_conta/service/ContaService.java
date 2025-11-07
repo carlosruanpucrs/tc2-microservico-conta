@@ -64,6 +64,13 @@ public class ContaService {
         return ContaMapper.mapToContaResponse(conta);
     }
 
+    public void bloquearSaldo(Integer numeroConta, BigDecimal valor) {
+        var conta = obtemContaPorNumero(numeroConta);
+        conta.bloquearSaldo(valor);
+        conta.debitar(valor);
+        contaRepository.save(conta);
+    }
+
     public void atualizarSaldo(Integer numeroConta, BigDecimal valor, OperacaoTransacaoEnum operacaoTransacao) {
         var conta = obtemContaPorNumero(numeroConta);
 
@@ -88,6 +95,6 @@ public class ContaService {
 
     private ContaEntity obtemContaPorDocumento(String numeroDocumento) {
         return contaRepository.findContaEntityByDocumentoCliente(numeroDocumento)
-                .orElseThrow(() -> new DocumentoClienteNaoEncontradoException(numeroDocumento));
+                .orElse(null);
     }
 }

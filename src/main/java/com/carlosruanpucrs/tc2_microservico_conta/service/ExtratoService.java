@@ -17,7 +17,7 @@ public class ExtratoService {
     private final TransacaoClient transacaoClient;
 
     public ExtratoResponse gerarExtrato(Integer numeroConta, BigDecimal saldoConta) {
-        var transacoes = null; //transacaoClient
+        var transacoes = transacaoClient.listarTransferenciasPorConta(numeroConta).getBody();
         return ExtratoMapper.mapToExtratoResponse(numeroConta, saldoConta, transacoes);
     }
 }
