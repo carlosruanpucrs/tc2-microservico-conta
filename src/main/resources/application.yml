@@ -20,3 +20,5 @@ eureka:
     non-secure-port-enabled: false
     secure-port-enabled: true
     secure-port: 443
+    status-page-url: ${RENDER_EXTERNAL_URL:localhost}/actuator/info
+    health-check-url: ${RENDER_EXTERNAL_URL:localhost}/actuator/health
