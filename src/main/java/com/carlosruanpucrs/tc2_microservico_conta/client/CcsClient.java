@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-//@Component
+@Component
 @FeignClient(name = "ccs-service", path = "/v1/ccs")
 public interface CcsClient {
 
