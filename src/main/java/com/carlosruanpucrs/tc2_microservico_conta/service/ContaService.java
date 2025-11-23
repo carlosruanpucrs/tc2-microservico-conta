@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.Random;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -47,7 +48,7 @@ public class ContaService {
     }
 
     private Integer gerarNumeroConta() {
-        return (int) (Math.random() * 29);
+        return new Random().nextInt(99000000);
     }
 
     private Integer gerarNumeroBeneficio(TipoContaEnum tipoConta) {
