@@ -5,6 +5,7 @@ import com.carlosruanpucrs.tc2_microservico_conta.model.dto.TransferenciaDTO;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
