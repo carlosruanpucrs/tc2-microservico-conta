@@ -29,5 +29,5 @@ eureka:
     secure-port-enabled: true
     secure-port: 443
     prefer-ip-address: false
-    status-page-url: {RENDER_EXTERNAL_URL}/actuator/info
-    health-check-url: {RENDER_EXTERNAL_URL}/actuator/health
+    status-page-url: ${RENDER_EXTERNAL_URL}/actuator/info
+    health-check-url: ${RENDER_EXTERNAL_URL}/actuator/health
